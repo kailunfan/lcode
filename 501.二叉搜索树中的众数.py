@@ -56,49 +56,44 @@ class Solution(object):
         :type root: TreeNode
         :rtype: List[int]
         """
-        # BST中序遍历为升序数组
+        # BST中序遍历
+        # 遍历时可以求出每个数字出现的次数
+        # 记录最大次数和众数集合,如果超过最大次数,则更新
         if not root:
             return []
         ans = []
-
-        max_count = 0
-        count = 0
-        prev_val = None
-        cur_val = None
-        
-
-        # 中序遍历
         stack = []
         cur = root
-        while stack or cur:
+        base_val = None
+        
+        max_count = 0
+        this_count = 0
+        while cur or stack:
             if cur:
                 stack.append(cur)
                 cur = cur.left
             else:
                 cur = stack.pop()
-                
-                # 逻辑start
-                cur_val = cur.val
-                if cur_val == prev_val:
-                    count += 1
+                # 处理逻辑
+                if cur.val == base_val:
+                    this_count += 1
                 else:
-                    if count == max_count:
-                        ans.append(prev_val)
-                    elif count > max_count:
-                        ans = [prev_val]
-                        max_count = count
-                    
-                    prev_val = cur_val
-                    count = 1
-                # 逻辑end
-
+                    if base_val is not None:
+                        if this_count > max_count:
+                            ans = [base_val]
+                            max_count = this_count
+                        elif this_count == max_count:
+                            ans.append(base_val)
+                    this_count = 1
+                    base_val = cur.val
                 cur = cur.right
 
-        if count > max_count:
-            ans = [cur_val]
-        elif count == max_count:
-            ans.append(cur_val)
-        return [i for i in ans if i is not None]
+        if this_count > max_count:
+            ans = [base_val]
+        elif this_count == max_count:
+            ans.append(base_val)
 
+        return ans
+    
 
 # @lc code=end

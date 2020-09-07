@@ -1,5 +1,5 @@
 #
-# @lc app=leetcode.cn id=437 lang=python
+# @lc app=leetcode.cn id=437 lang=python3
 #
 # [437] 路径总和 III
 #
@@ -52,9 +52,6 @@
 
 
 class Solution(object):
-    def __init__(self):
-        self.ans = 0
-
     def pathSum(self, root, sum):
         """
         :type root: TreeNode
@@ -63,17 +60,17 @@ class Solution(object):
         """
         if not root:
             return 0
-        def check(node, res_list):
-            self.ans += res_list.count(sum)
+        ans = 0
+        # 回溯
+        def search(node, res_list):
+            nonlocal ans
+            ans += res_list.count(sum)
             if node.left:
-                increment = node.left.val
-                check(node.left, [increment]+[(increment + i) for i in res_list])
+                search(node.left, [i+node.left.val for i in res_list]+[node.left.val])
             if node.right:
-                increment = node.right.val
-                check(node.right, [increment]+[(increment + i) for i in res_list])
-        check(root,[root.val])
-        return self.ans
-
+                search(node.right, [i+node.right.val for i in res_list]+[node.right.val])
+        search(root, [root.val])
+        return ans
 
 
 # @lc code=end

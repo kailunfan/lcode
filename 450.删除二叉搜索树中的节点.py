@@ -1,5 +1,5 @@
 #
-# @lc app=leetcode.cn id=450 lang=python
+# @lc app=leetcode.cn id=450 lang=python3
 #
 # [450] 删除二叉搜索树中的节点
 #
@@ -74,6 +74,55 @@ class Solution(object):
         :type key: int
         :rtype: TreeNode
         """
+        # 迭代
+        # if not root:
+        #     return
+        # sentry = TreeNode(None)
+        # sentry.left = root
+        # # (node,node.parent,left|right)
+        # stack = [(root, sentry, 'left')]
+        # while stack:
+        #     node, par, direction = stack.pop()
+        #     if node.val > key and node.left:
+        #         stack.append((node.left, node, 'left'))
+        #     elif node.val < key and node.right:
+        #         stack.append((node.right, node, 'right'))
+        #     elif node.val == key:
+        #         # 删除节点
+        #         target = None
+        #         if node.left and node.right:
+        #             # 找到左子树中的最大值
+        #             cur = node.left
+        #             while cur.right:
+        #                 cur = cur.right
+        #             cur.right = node.right
+        #             target = node.left
+        #         else:
+        #             target = node.left or node.right
+        #         setattr(par, direction, target)
+        # return sentry.left
+
+        # 递归
+        def search(node):
+            if not node:
+                return node
+            if node.val > key:
+                node.left = search(node.left)
+                return node
+            if node.val < key:
+                node.right = search(node.right)
+                return node
+            # 相等的情况
+            if node.left and node.right:
+                # 找到左子树中的最大值
+                cur = node.left
+                while cur.right:
+                    cur = cur.right
+                cur.right = node.right
+                return node.left
+            return node.left or node.right
+            
+        return search(root)
 
         def delete(node, key):
             if not node:

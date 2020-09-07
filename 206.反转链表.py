@@ -1,5 +1,5 @@
 #
-# @lc app=leetcode.cn id=206 lang=python
+# @lc app=leetcode.cn id=206 lang=python3
 #
 # [206] 反转链表
 #
@@ -39,11 +39,17 @@ class Solution(object):
         :type head: ListNode
         :rtype: ListNode
         """
-        # pre, cur = None, head
-        # while cur:
-        #     cur.next, cur, pre = pre, cur.next, cur
-        # return pre
+        # 注意,解构赋值的原理
+        # a,b,c = d,e,f
+        # 相当于 x = (d,e,f)
+        # 再执行 a = d, b = e, c = f
+        # 所以解构赋值左值中,后面的变量一定不能用到前面的变量.
+        pre, cur = None, head
+        while cur:
+            cur.next, cur, pre = pre, cur.next, cur
+        return pre
 
+        # 递归
         def rev(node):
             # return new_head,tail
             if not node or not node.next:
@@ -54,7 +60,7 @@ class Solution(object):
             tail.next = node
             return new_head, node
 
-        new_head,_ = rev(head)
+        new_head, _ = rev(head)
         return new_head
 
 
