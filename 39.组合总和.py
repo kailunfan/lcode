@@ -56,7 +56,7 @@
 # 
 # 
 #
-
+from typing import List
 # @lc code=start
 class Solution:
     def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
@@ -73,7 +73,5 @@ class Solution:
                 backtrack(i,path+[candidates[i]])
         backtrack(0,[])
         return ans
-            
-            
 # @lc code=end
 

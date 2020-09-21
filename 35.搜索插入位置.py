@@ -64,19 +64,16 @@ class Solution(object):
         # return lo
 
         # 模式解法
-        # 1. <=
-        # 2. m+1,m-1
-        # 3. 根据题目要求返回位置.
-        # l, h = 0, len(nums) - 1
-        # while l <= h:
-        #     m = (l+h) // 2
-        #     if nums[m] >= target:
-        #         if m == 0 or nums[m-1] < target:
-        #             return m
-        #         h = m - 1
-        #     else:
-        #         l = m + 1
-        # return l
+        l, h = 0, len(nums) - 1
+        while l <= h:
+            m = (l+h) // 2
+            if nums[m] >= target:
+                if m == 0 or nums[m-1] < target:
+                    return m
+                h = m - 1
+            else:
+                l = m + 1
+        return len(nums)
 
         # 模式简化下
         l, h = 0, len(nums)-1

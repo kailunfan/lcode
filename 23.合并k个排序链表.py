@@ -35,8 +35,6 @@
 #         self.next = None
 
 import heapq
-heapq.heapify
-
 
 class Solution(object):
     def mergeKLists(self, lists):
@@ -44,14 +42,31 @@ class Solution(object):
         :type lists: List[ListNode]
         :rtype: ListNode
         """
+        # 标准解法
+        # 维护k个指针
+        sentry = ListNode(None)
+        cur = sentry
+        heads = []
+        for head in lists:
+            if head:
+                heads.append((head.val, head))
+        heapq.heapify(heads)
+        while heads:
+            _, node = heapq.heappop(heads)
+            cur.next = node
+            cur = cur.next
+            if node.next:
+                heapq.heappush(heads,(node.next.val,node.next))
+        return sentry.next
+
         # 分治(归并)
         if not lists:
             return None
-        while len(lists)>1:
+        while len(lists) > 1:
             tmp = []
-            for i in range(0,len(lists),2):
-                if i+1<len(lists):
-                    tmp.append(self.merger_two(lists[i],lists[i+1]))
+            for i in range(0, len(lists), 2):
+                if i+1 < len(lists):
+                    tmp.append(self.merger_two(lists[i], lists[i+1]))
                 else:
                     tmp.append(lists[i])
             lists = tmp

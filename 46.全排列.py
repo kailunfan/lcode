@@ -1,5 +1,5 @@
 #
-# @lc app=leetcode.cn id=46 lang=python
+# @lc app=leetcode.cn id=46 lang=python3
 #
 # [46] 全排列
 #
@@ -41,45 +41,20 @@ class Solution(object):
         :rtype: List[List[int]]
         """
 
-        # 迭代
-        tmp = [[]]
-        for i in nums:
-            tmp += [t+[i] for t in tmp]
-            print(tmp)
-        return [x for x in tmp if len(tmp)==len(nums)]    
-
         # 标准回溯
         result = []
-        visited = [False] * len(nums)
-        def backtrack(tmp):
+        def backtrack(tmp,visited):
             if len(tmp) == len(nums):
                 result.append(tmp)
-                return 
+                return
             for i in range(len(nums)):
                 if visited[i]:
                     continue
-                visited[i] = True
-                backtrack(tmp + [nums[i]])
-                visited[i] = False
-            return result
-        return backtrack([])
-
-
-        ans = []
-        l = len(nums)
-        # 回溯
-        def check(this_ans):
-            if len(this_ans) == l:
-                ans.append(this_ans[:])
-            for i in nums:
-                if i not in this_ans:
-                    this_ans.append(i)
-                    check(this_ans)
-                    this_ans.pop()
-        check([])
-        return ans
+                visited[i] = 1
+                backtrack(tmp + [nums[i]],visited)
+                visited[i] = 0
+        backtrack([],[0]*len(nums))
+        return result
             
 # @lc code=end
-
-
 

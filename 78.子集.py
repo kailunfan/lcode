@@ -44,20 +44,20 @@ class Solution(object):
         :rtype: List[List[int]]
         """
         # 回溯
-        # ans = []
-        # l = len(nums)
-        # def search(target,ind):
-        #     ans.append(target)
-        #     for i in range(ind,l):
-        #         search(target+[nums[i]],i+1)
-        # search([],0)
-        # return ans
+        ans = []
+        l = len(nums)
+        def search(target,ind):
+            ans.append(target)
+            for i in range(ind,l):
+                search(target+[nums[i]],i+1)
+        search([],0)
+        return ans
 
         # 逐个元素添加
-        # ans = [[]]
-        # for item in nums:
-        #     ans += [[item]+a for a in ans]
-        # return ans
+        ans = [[]]
+        for i in nums:
+            ans += [x+[i] for x in ans]
+        return ans
 
         # 二进制掩码
         ans = []

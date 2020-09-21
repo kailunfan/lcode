@@ -75,6 +75,26 @@ class Solution:
         """
         Do not return anything, modify root in-place instead.
         """
-        
+        # 有序数组交换两个节点后有何特点?
+        # 中序遍历
+        pre_node = None
+        swapped_nodes = []
+        stack = []
+        cur = root
+        while cur or stack:
+            if cur:
+                stack.append(cur)
+                cur = cur.left
+            else:
+                cur = stack.pop()
+                # 处理
+                if pre_node and cur.val < pre_node.val:
+                    swapped_nodes.append((pre_node,cur))
+                pre_node = cur
+                cur = cur.right
+        if len(swapped_nodes) == 1:
+            swapped_nodes[0][0].val,swapped_nodes[0][1].val = swapped_nodes[0][1].val,swapped_nodes[0][0].val
+        if len(swapped_nodes) == 2:
+            swapped_nodes[0][0].val,swapped_nodes[1][1].val = swapped_nodes[1][1].val,swapped_nodes[0][0].val
 # @lc code=end
 

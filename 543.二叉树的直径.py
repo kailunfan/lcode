@@ -1,5 +1,5 @@
 #
-# @lc app=leetcode.cn id=543 lang=python
+# @lc app=leetcode.cn id=543 lang=python3
 #
 # [543] 二叉树的直径
 #
@@ -50,19 +50,17 @@ class Solution(object):
         :type root: TreeNode
         :rtype: int
         """
-        if not root:
-            return 0
-        
-        self.ans = 0
-        def search(node):
+        # 通过求二叉树的深度求解
+        ans = 0
+        def depth(node):
             if not node:
                 return 0
-            l = search(node.left)
-            r = search(node.right)
-            self.ans = max(self.ans, l + r + 1)
-            return max(l, r) + 1
-        
-        search(root)
-        return self.ans - 1
+            l = depth(node.left)
+            r = depth(node.right)
+            nonlocal ans
+            ans = max(ans,l+r)
+            return max(l,r) +1
+        depth(root)
+        return ans
 
 # @lc code=end
