@@ -3,35 +3,55 @@
  *
  * [111] 二叉树的最小深度
  *
- * https://leetcode-cn.com/problems/minimum-depth-of-binary-tree/description/
+ * https://leetcode.cn/problems/minimum-depth-of-binary-tree/description/
  *
  * algorithms
- * Easy (42.07%)
- * Likes:    257
+ * Easy (52.29%)
+ * Likes:    1051
  * Dislikes: 0
- * Total Accepted:    75.9K
- * Total Submissions: 178.9K
+ * Total Accepted:    585.3K
+ * Total Submissions: 1.1M
  * Testcase Example:  '[3,9,20,null,null,15,7]'
  *
  * 给定一个二叉树，找出其最小深度。
- * 
+ *
  * 最小深度是从根节点到最近叶子节点的最短路径上的节点数量。
- * 
- * 说明: 叶子节点是指没有子节点的节点。
- * 
- * 示例:
- * 
- * 给定二叉树 [3,9,20,null,null,15,7],
- * 
- * ⁠   3
- * ⁠  / \
- * ⁠ 9  20
- * ⁠   /  \
- * ⁠  15   7
- * 
- * 返回它的最小深度  2.
- * 
+ *
+ * 说明：叶子节点是指没有子节点的节点。
+ *
+ *
+ *
+ * 示例 1：
+ *
+ *
+ * 输入：root = [3,9,20,null,null,15,7]
+ * 输出：2
+ *
+ *
+ * 示例 2：
+ *
+ *
+ * 输入：root = [2,null,3,null,4,null,5,null,6]
+ * 输出：5
+ *
+ *
+ *
+ *
+ * 提示：
+ *
+ *
+ * 树中节点数的范围在 [0, 10^5] 内
+ * -1000
+ *
+ *
  */
+package main
+
+// type TreeNode struct {
+// 	Val   int
+// 	Left  *TreeNode
+// 	Right *TreeNode
+// }
 
 // @lc code=start
 /**
@@ -46,28 +66,22 @@ func minDepth(root *TreeNode) int {
 	if root == nil{
 		return 0
 	}
-	q := []*TreeNode{}
-	q = append(q,root)
-	ans := 1
-
-	for(q != nil){
-		tmp:=[]*TreeNode{}
-		for i:=0;i<len(q);i++{
-			node := q[i]
-			if node.Left == nil && node.Right == nil{
-				return ans 
-			}
-			if node.Left != nil{
-				tmp = append(tmp,node.Left)
-			}
-			if node.Right!=nil{
-				tmp = append(tmp,node.Right)
-			}
-		}
-		ans++
-		q = tmp
+	if root.Left == nil && root.Right == nil {
+		return 1
 	}
-	return ans
+	if root.Left == nil {
+		return minDepth(root.Right) + 1
+	}
+	if root.Right == nil {
+		return minDepth(root.Left) + 1
+	}
+	la := minDepth(root.Right)
+	ra := minDepth(root.Left)
+	if la > ra {
+		return ra + 1
+	} else {
+		return la + 1
+	}
 }
-// @lc code=end
 
+// @lc code=end

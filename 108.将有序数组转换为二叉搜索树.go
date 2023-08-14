@@ -31,7 +31,7 @@
  *
  *
  */
-
+package main
 // @lc code=start
 /**
  * Definition for a binary tree node.
