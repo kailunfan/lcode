@@ -52,14 +52,15 @@ class Solution(object):
         """
         # 通过求二叉树的深度求解
         ans = 0
+
         def depth(node):
             if not node:
                 return 0
             l = depth(node.left)
             r = depth(node.right)
             nonlocal ans
-            ans = max(ans,l+r)
-            return max(l,r) +1
+            ans = max(ans, l+r)
+            return max(l, r) + 1
         depth(root)
         return ans
 

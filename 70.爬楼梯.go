@@ -62,4 +62,12 @@ func climbStairs(n int) int {
 	return s2
 }
 
+// recrusive, may be timeout
+func climbStairs1(n int) int {
+	if n <= 2 {
+		return n
+	}
+	return climbStairs(n-1) + climbStairs(n-2)
+}
+
 // @lc code=end
