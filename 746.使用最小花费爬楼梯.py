@@ -53,13 +53,13 @@ class Solution(object):
         """
         status = {}
         # 用/不用
-        status[0] = (cost[0],0) 
-        status[1] = (cost[1],status[0])
-        for i in range(2,len(cost)):
-            use = cost[i] + min(status[i-1][0],status[i-1][1],status[i-2][0])
+        status[0] = (cost[0], 0)
+        status[1] = (cost[1], status[0])
+        for i in range(2, len(cost)):
+            use = cost[i] + min(status[i-1][0], status[i-1][1], status[i-2][0])
             not_use = status[i-1][0]
-            status[i] = (use,not_use)
-        return min(status[len(cost)-1][0],status[len(cost)-1][1])
+            status[i] = (use, not_use)
+        return min(status[len(cost)-1][0], status[len(cost)-1][1])
 
 
 # @lc code=end
