@@ -60,6 +60,14 @@
  *
  *
  */
+package main
+
+import "fmt"
+
+type ListNode struct {
+	Val  int
+	Next *ListNode
+}
 
 // @lc code=start
 /**
@@ -69,9 +77,6 @@
  *     Next *ListNode
  * }
  */
-package main
-
-import "fmt"
 
 func printLinkList(head *ListNode) {
 	for head != nil {
@@ -101,6 +106,5 @@ func insertionSortList1(head *ListNode) *ListNode {
 	}
 	return sentry.Next
 }
-
 
 // @lc code=end

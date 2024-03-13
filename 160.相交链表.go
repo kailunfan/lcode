@@ -104,14 +104,13 @@
  *
  */
 
-// @lc code=start
 /**
  * Definition for singly-linked list.
  * type ListNode struct {
- *     Val int
- *     Next *ListNode
- * }
- */
+	 *     Val int
+	 *     Next *ListNode
+	 * }
+*/
 
 package main
 
@@ -120,21 +119,19 @@ type ListNode struct {
 	Next *ListNode
 }
 
+// 关键: 隐式尾部添加nil
+
+// @lc code=start
 
 func getIntersectionNode(headA, headB *ListNode) *ListNode {
 	if headA == nil || headB == nil {
 		return nil
 	}
 	c1, c2 := headA, headB
-
 	for {
-		// if c1 == nil && c2 == nil {
-		// 	return nil
-		// }
 		if c1 == c2 {
 			return c1
 		}
-
 		if c1 == nil {
 			c1 = headB
 		} else {
@@ -146,6 +143,7 @@ func getIntersectionNode(headA, headB *ListNode) *ListNode {
 			c2 = c2.Next
 		}
 	}
+	return nil
 }
 
 // @lc code=end

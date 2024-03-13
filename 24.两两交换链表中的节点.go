@@ -49,37 +49,39 @@
  *
  */
 
-// @lc code=start
-/**
- * Definition for singly-linked list.
- * type ListNode struct {
- *     Val int
- *     Next *ListNode
- * }
- */
 package main
 
+type ListNode struct {
+	Val  int
+	Next *ListNode
+}
+
+/**
+* Definition for singly-linked list.
+* type ListNode struct {
+	*     Val int
+	*     Next *ListNode
+	* }
+*/
+
+// @lc code=start
 func swapPairs1(head *ListNode) *ListNode {
 	// 迭代
 	sentry := &ListNode{0, head}
-	lc := sentry
-
-	for lc.Next != nil && lc.Next.Next != nil {
-		rc := lc.Next
-		lc.Next, rc.Next.Next, rc.Next, lc = rc.Next, rc, rc.Next.Next, lc.Next
+	cur := sentry
+	for cur != nil && cur.Next != nil && cur.Next.Next != nil {
+		cur, cur.Next, cur.Next.Next, cur.Next.Next.Next = cur.Next, cur.Next.Next, cur.Next.Next.Next, cur.Next
 	}
-
 	return sentry.Next
 }
 
 func swapPairs(head *ListNode) *ListNode {
 	// 递归
-	if (head==nil || head.Next==nil){
+	if head == nil || head.Next == nil {
 		return head
 	}
 	tmp := head.Next
-	head.Next = swapPairs(tmp.Next)
-	tmp.Next = head
+	head.Next, head.Next.Next = swapPairs(head.Next.Next), head
 	return tmp
 }
 

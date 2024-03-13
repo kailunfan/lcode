@@ -68,6 +68,13 @@
  *
  */
 
+package main
+
+type ListNode struct {
+	Val  int
+	Next *ListNode
+}
+
 // @lc code=start
 /**
  * Definition for singly-linked list.
@@ -76,53 +83,20 @@
  *     Next *ListNode
  * }
  */
-// func hasCycle(head *ListNode) bool {
-// 	if head == nil || head.Next == nil {
-// 		return false
-// 	}
-// 	lc, fc := head, head.Next
-// 	for fc != lc {
-// 		if fc == nil || fc.Next == nil {
-// 			return false
-// 		}
-// 		lc = lc.Next
-// 		fc = fc.Next.Next
-// 	}
-// 	return true
-// }
-package main
-
-func hasCycle1(head *ListNode) bool {
-	if head == nil || head.Next == nil {
-		return false
-	}
-	lc, fc := head, head
-	for {
-		lc = lc.Next
-		if fc == nil || fc.Next == nil {
-			return false
-		}
-		fc = fc.Next.Next
-		if lc == fc {
-			return true
-		}
-	}
-	return false
-}
 
 func hasCycle(head *ListNode) bool {
 	if head == nil || head.Next == nil {
 		return false
 	}
-	lc, fc := head, head.Next
-	for lc != fc {
-		if fc == nil || fc.Next == nil {
-			return false
+	s, f := head, head
+	for f != nil && f.Next != nil {
+		s = s.Next
+		f = f.Next.Next
+		if s == f {
+			return true
 		}
-		fc = fc.Next.Next
-		lc = lc.Next
 	}
-	return true
+	return false
 }
 
 // @lc code=end

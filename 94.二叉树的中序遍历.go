@@ -53,6 +53,13 @@
  *
  */
 package main
+
+type TreeNode struct {
+	Val   int
+	Left  *TreeNode
+	Right *TreeNode
+}
+
 // @lc code=start
 /**
  * Definition for a binary tree node.
@@ -75,7 +82,7 @@ func inorderTraversal1(root *TreeNode) []int {
 
 func inorderTraversal2(root *TreeNode) (ans []int) {
 	var fc func(node *TreeNode)
-	fc = func(node *TreeNode){
+	fc = func(node *TreeNode) {
 		if node == nil {
 			return
 		}
@@ -91,12 +98,12 @@ func inorderTraversal2(root *TreeNode) (ans []int) {
 func inorderTraversal(root *TreeNode) (ans []int) {
 	stack := []*TreeNode{}
 	for root != nil || len(stack) > 0 {
-		for root != nil{
+		for root != nil {
 			stack = append(stack, root)
 			root = root.Left
 		}
 		root = stack[len(stack)-1]
-		stack = stack[0:len(stack)-1]
+		stack = stack[0 : len(stack)-1]
 		ans = append(ans, root.Val)
 		root = root.Right
 	}
@@ -104,4 +111,3 @@ func inorderTraversal(root *TreeNode) (ans []int) {
 }
 
 // @lc code=end
-

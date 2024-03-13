@@ -55,7 +55,13 @@
  *
  */
 
- package main
+package main
+
+type ListNode struct {
+	Val  int
+	Next *ListNode
+}
+
 // @lc code=start
 /**
  * Definition for singly-linked list.
@@ -65,7 +71,6 @@
  * }
  */
 
-
 func removeNthFromEnd(head *ListNode, n int) *ListNode {
 	/*
 		双指针
@@ -74,8 +79,8 @@ func removeNthFromEnd(head *ListNode, n int) *ListNode {
 		3. 推进步骤
 	*/
 	sentry := &ListNode{0, head}
-	lc, rc := sentry, head
-	for i := 0; i < n; i++ {
+	lc, rc := sentry, sentry
+	for i := 0; i <= n; i++ {
 		rc = rc.Next
 	}
 	for rc != nil {

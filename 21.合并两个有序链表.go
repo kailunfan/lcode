@@ -50,10 +50,9 @@
  *
  */
 
- package main
+package main
 
-
- type ListNode struct {
+type ListNode struct {
 	Val  int
 	Next *ListNode
 }
@@ -67,31 +66,25 @@
  * }
  */
 
-
 func mergeTwoLists(list1 *ListNode, list2 *ListNode) *ListNode {
-	if list1 == nil {
-		return list2
-	}
-	if list2 == nil {
-		return list1
-	}
 	sentry := new(ListNode)
-
 	cur := sentry
-	for list1 != nil && list2 != nil {
-		if list1.Val <= list2.Val {
-			cur.Next = list1
-			list1 = list1.Next
+	lc, rc := list1, list2
+	for lc != nil && rc != nil {
+		if lc.Val <= rc.Val {
+			cur.Next = lc
+			lc = lc.Next
 		} else {
-			cur.Next = list2
-			list2 = list2.Next
+			cur.Next = rc
+			rc = rc.Next
 		}
 		cur = cur.Next
 	}
-	if list1 != nil {
-		cur.Next = list1
-	} else if list2 != nil {
-		cur.Next = list2
+	if lc != nil {
+		cur.Next = lc
+	}
+	if rc != nil {
+		cur.Next = rc
 	}
 	return sentry.Next
 }

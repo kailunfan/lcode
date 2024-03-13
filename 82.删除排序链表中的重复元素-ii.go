@@ -42,6 +42,12 @@
  *
  *
  */
+package main
+
+type ListNode struct {
+	Val  int
+	Next *ListNode
+}
 
 // @lc code=start
 /**
@@ -51,7 +57,6 @@
  *     Next *ListNode
  * }
  */
-package main
 
 // 审题出错
 // func deleteDuplicates1(head *ListNode) *ListNode {
@@ -71,18 +76,18 @@ package main
 2. 分情况处理,需向后peek一个元素;
 */
 func deleteDuplicates(head *ListNode) *ListNode {
-	sentry := &ListNode{0, head}
+	sentry := &ListNode{Next: head}
 	cur := sentry
-	for cur.Next != nil && cur.Next.Next != nil {
+	for cur != nil && cur.Next != nil && cur.Next.Next != nil {
 		if cur.Next.Val != cur.Next.Next.Val {
 			cur = cur.Next
 		} else {
-			val := cur.Next.Val
-			rc := cur.Next
-			for rc != nil && rc.Val == val {
-				rc = rc.Next
+			v := cur.Next.Val
+			c := cur.Next
+			for c != nil && c.Val == v {
+				c = c.Next
 			}
-			cur.Next = rc
+			cur.Next = c
 		}
 	}
 	return sentry.Next

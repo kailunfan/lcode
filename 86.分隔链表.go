@@ -45,6 +45,13 @@
  *
  */
 
+package main
+
+type ListNode struct {
+	Val  int
+	Next *ListNode
+}
+
 // @lc code=start
 /**
  * Definition for singly-linked list.
@@ -54,31 +61,22 @@
  * }
  */
 
-package main
-
 func partition(head *ListNode, x int) *ListNode {
-	if head == nil {
-		return head
-	}
-	lsentry := &ListNode{}
-	rsentry := &ListNode{}
-	lc, rc := lsentry, rsentry
-	mc := head
-	for mc != nil {
-		if mc.Val < x {
-			lc.Next = mc
-			lc = lc.Next
+	minHead := &ListNode{}
+	maxHead := &ListNode{}
+	minC, maxC := minHead, maxHead
+	for c := head; c != nil; c = c.Next {
+		if c.Val < x {
+			minC.Next = c
+			minC = c
 		} else {
-			rc.Next = mc
-			rc = rc.Next
+			maxC.Next = c
+			maxC = c
 		}
-		mc = mc.Next
 	}
-	// 这是关键,否则成为循环链表
-	// 链表有合并操作时需注意
-	rc.Next = nil
-	lc.Next = rsentry.Next
-	return lsentry.Next
+	maxC.Next = nil
+	minC.Next = maxHead.Next
+	return minHead.Next
 }
 
 // @lc code=end

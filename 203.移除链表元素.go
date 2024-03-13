@@ -48,6 +48,12 @@
  *
  *
  */
+package main
+
+type ListNode struct {
+	Val  int
+	Next *ListNode
+}
 
 // @lc code=start
 /**
@@ -57,19 +63,18 @@
  *     Next *ListNode
  * }
  */
-package main
 
 func removeElements(head *ListNode, val int) *ListNode {
-	dummyHead := &ListNode{0, head}
-	c := dummyHead
-	for c.Next != nil {
-		if c.Next.Val == val {
-			c.Next = c.Next.Next
-		}else{
-			c = c.Next
+	sentry := &ListNode{0, head}
+	cur := sentry
+	for cur.Next != nil {
+		if cur.Next.Val == val {
+			cur.Next = cur.Next.Next
+		} else {
+			cur = cur.Next
 		}
 	}
-	return dummyHead.Next
+	return sentry.Next
 }
 
 // @lc code=end

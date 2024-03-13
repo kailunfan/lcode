@@ -48,30 +48,37 @@
  *
  */
 
-// @lc code=start
 /**
  * Definition for singly-linked list.
  * type ListNode struct {
- *     Val int
- *     Next *ListNode
- * }
- */
+	 *     Val int
+	 *     Next *ListNode
+	 * }
+*/
 package main
 
+type ListNode struct {
+	Val  int
+	Next *ListNode
+}
+
+// @lc code=start
+
 func reverseBetween(head *ListNode, left int, right int) *ListNode {
-	sentry := &ListNode{0, head}
-	ps := sentry
+	sentry := &ListNode{Next: head}
+	lc := sentry
 	for i := 0; i < left-1; i++ {
-		ps = ps.Next
+		lc = lc.Next
 	}
-	// 开始反转
-	sp := ps.Next
-	pre, cur := &ListNode{}, sp
-	for i := left; i <= right; i++ {
-		cur.Next, pre, cur = pre, cur, cur.Next
+	cur := lc.Next
+	var pre *ListNode
+	tmp := cur
+	for i := 0; i < right-left+1; i++ {
+		cur.Next, cur, pre = pre, cur.Next, cur
 	}
-	ps.Next = pre
-	sp.Next = cur
+	lc.Next = pre
+	tmp.Next = cur
+	
 	return sentry.Next
 }
 

@@ -42,6 +42,12 @@
  *
  *
  */
+package main
+
+type ListNode struct {
+	Val  int
+	Next *ListNode
+}
 
 // @lc code=start
 /**
@@ -57,7 +63,6 @@
  - 末尾全一样
  - nil
 */
-package main
 
 func deleteDuplicates(head *ListNode) *ListNode {
 	cur := head

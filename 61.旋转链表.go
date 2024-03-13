@@ -43,6 +43,12 @@
  *
  */
 package main
+
+type ListNode struct {
+	Val  int
+	Next *ListNode
+}
+
 // @lc code=start
 /**
  * Definition for singly-linked list.
@@ -62,24 +68,22 @@ func rotateRight(head *ListNode, k int) *ListNode {
 	if head == nil || head.Next == nil {
 		return head
 	}
-	l := 0
+	
+	l := 1
 	cur := head
-	for {
+	for cur.Next != nil {
 		l++
-		if cur.Next == nil {
-			cur.Next = head
-			break
-		}
 		cur = cur.Next
 	}
-	step := l - (k % l)
-	pre := head
-	for i := 0; i < step-1; i++ {
-		pre = pre.Next
+	cur.Next = head
+
+	c := head
+	for i := 0; i < l-k%l-1; i++ {
+		c = c.Next
 	}
-	tmp := pre.Next
-	pre.Next = nil
-	return tmp
+	newHead := c.Next
+	c.Next = nil
+	return newHead
 }
 
 // @lc code=end

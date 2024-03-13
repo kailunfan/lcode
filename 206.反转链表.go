@@ -55,6 +55,12 @@
  *
  *
  */
+package main
+
+type ListNode struct {
+	Val  int
+	Next *ListNode
+}
 
 // @lc code=start
 /**
@@ -64,16 +70,14 @@
  *     Next *ListNode
  * }
  */
-package main
 
 func reverseList(head *ListNode) *ListNode {
-	pre := &ListNode{}
+	var pre *ListNode
 	cur := head
 	for cur != nil {
-		cur.Next, cur, pre = pre, cur.Next, cur
+		head.Next, cur, pre = pre, cur.Next, cur
 	}
 	return pre
 }
 
 // @lc code=end
-
