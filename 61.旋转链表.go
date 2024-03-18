@@ -68,13 +68,15 @@ func rotateRight(head *ListNode, k int) *ListNode {
 	if head == nil || head.Next == nil {
 		return head
 	}
-	
+
 	l := 1
 	cur := head
+	// must locate the last node
 	for cur.Next != nil {
 		l++
 		cur = cur.Next
 	}
+	// make circle
 	cur.Next = head
 
 	c := head
@@ -82,6 +84,7 @@ func rotateRight(head *ListNode, k int) *ListNode {
 		c = c.Next
 	}
 	newHead := c.Next
+	// break circle
 	c.Next = nil
 	return newHead
 }

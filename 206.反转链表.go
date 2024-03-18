@@ -75,7 +75,7 @@ func reverseList(head *ListNode) *ListNode {
 	var pre *ListNode
 	cur := head
 	for cur != nil {
-		head.Next, cur, pre = pre, cur.Next, cur
+		cur.Next, cur, pre = pre, cur.Next, cur
 	}
 	return pre
 }
