@@ -58,7 +58,7 @@ class Solution(object):
         # return l
 
         # 模式解法
-        l,h = 0,n
+        l,h = 1,n
         while l<=h:
             m = (l+h)//2
             if isBadVersion(m):

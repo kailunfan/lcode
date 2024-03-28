@@ -69,45 +69,21 @@ type TreeNode struct {
  *     Right *TreeNode
  * }
  */
-func inorderTraversal1(root *TreeNode) []int {
-	var ans []int
-	if root == nil {
-		return ans
-	}
-	ans = append(ans, inorderTraversal(root.Left)...)
-	ans = append(ans, root.Val)
-	ans = append(ans, inorderTraversal(root.Right)...)
-	return ans
-}
-
-func inorderTraversal2(root *TreeNode) (ans []int) {
-	var fc func(node *TreeNode)
-	fc = func(node *TreeNode) {
-		if node == nil {
-			return
-		}
-		fc(node.Left)
-		ans = append(ans, node.Val)
-		fc(node.Right)
-	}
-	fc(root)
-	return
-}
 
 // iteration
 func inorderTraversal(root *TreeNode) (ans []int) {
 	stack := []*TreeNode{}
-	for root != nil || len(stack) > 0 {
+	for len(stack) > 0 || root != nil {
 		for root != nil {
 			stack = append(stack, root)
 			root = root.Left
 		}
 		root = stack[len(stack)-1]
-		stack = stack[0 : len(stack)-1]
 		ans = append(ans, root.Val)
+		stack = stack[0 : len(stack)-1]
 		root = root.Right
 	}
-	return
+	return ans
 }
 
 // @lc code=end

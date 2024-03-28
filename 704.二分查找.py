@@ -65,17 +65,18 @@ class Solution(object):
         #     return search(start, mi-1)
         # return search(0,len(nums)-1)
 
-        # 迭代
-        start = 0
-        end = len(nums) - 1
-        while start <= end:
-            mi = (start + end) // 2
-            if nums[mi] == target:
-                return mi
-            if nums[mi] < target:
-                start = mi + 1
+        l, r = 0, len(nums)-1
+        while l < r:
+            mid = (l+r)//2
+            v = nums[mid]
+            if v < target:
+                l = mid+1
+            elif v > target:
+                r = mid-1
             else:
-                end = mi - 1
+                return mid
+        if nums[l] == target:
+            return l
         return -1
 
 

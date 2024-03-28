@@ -14,9 +14,9 @@
 # Testcase Example:  '[1,2,3]'
 #
 # 给定一个 没有重复 数字的序列，返回其所有可能的全排列。
-# 
+#
 # 示例:
-# 
+#
 # 输入: [1,2,3]
 # 输出:
 # [
@@ -27,15 +27,17 @@
 # ⁠ [3,1,2],
 # ⁠ [3,2,1]
 # ]
-# 
+#
 #
 
 import collections
 import copy
 
 # @lc code=start
+
+
 class Solution(object):
-    def permute(self, nums):
+    def permute1(self, nums):
         """
         :type nums: List[int]
         :rtype: List[List[int]]
@@ -43,7 +45,8 @@ class Solution(object):
 
         # 标准回溯
         result = []
-        def backtrack(tmp,visited):
+
+        def backtrack(tmp, visited):
             if len(tmp) == len(nums):
                 result.append(tmp)
                 return
@@ -51,10 +54,20 @@ class Solution(object):
                 if visited[i]:
                     continue
                 visited[i] = 1
-                backtrack(tmp + [nums[i]],visited)
+                backtrack(tmp + [nums[i]], visited)
                 visited[i] = 0
-        backtrack([],[0]*len(nums))
+        backtrack([], [0]*len(nums))
         return result
-            
-# @lc code=end
 
+    # iteration
+    def permute(self, nums):
+        ans = [[]]
+        for n in nums:
+            this_ans = []
+            for l in ans:
+                for i in range(0, len(l)+1):
+                    this_ans.append([*l[:i], n, *l[i:]])
+            ans = this_ans
+        return ans
+
+# @lc code=end
