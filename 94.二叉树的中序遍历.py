@@ -14,20 +14,20 @@
 # Testcase Example:  '[1,null,2,3]'
 #
 # 给定一个二叉树，返回它的中序 遍历。
-# 
+#
 # 示例:
-# 
+#
 # 输入: [1,null,2,3]
 # ⁠  1
 # ⁠   \
 # ⁠    2
 # ⁠   /
 # ⁠  3
-# 
+#
 # 输出: [1,3,2]
-# 
+#
 # 进阶: 递归算法很简单，你可以通过迭代算法完成吗？
-# 
+#
 #
 
 # @lc code=start
@@ -40,17 +40,16 @@
 
 class Solution(object):
     def inorderTraversal(self, root):
-        stack,res = [],[]
-        cur = root
-        while cur or stack:
-            if cur:
-                stack.append(cur)
-                cur = cur.left
+        stack, res = [], []
+        node = root
+        while stack or node:
+            if node:
+                stack.append(node)
+                node = node.left
             else:
-                cur = stack.pop()
-                res.append(cur.val)
-                cur = cur.right
+                node = stack.pop()
+                res.append(node.val)
+                node = node.right
         return res
 
 # @lc code=end
-

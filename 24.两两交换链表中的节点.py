@@ -26,6 +26,11 @@
 #
 #
 
+class ListNode:
+    def __init__(self, x):
+        self.val = x
+        self.next = None
+
 # @lc code=start
 # Definition for singly-linked list.
 # class ListNode:
@@ -43,16 +48,11 @@ class Solution:
         # return head
 
         # 迭代
-        if not head or not head.next:
-            return head
-        ans, cur = head.next, head
-        while cur and cur.next:
-            tar = None
-            if cur.next.next:
-                tar = cur.next.next
-                if tar.next:
-                    tar = tar.next
-            cur.next.next, cur.next, cur = cur, tar, cur.next.next
-        return ans
-
-# @lc code=end
+        sentry = ListNode(0)
+        sentry.next = head
+        cur = sentry
+        while cur and cur.next and cur.next.next:
+            cur.next.next.next, cur.next.next,      cur.next,      cur = \
+            cur.next,           cur.next.next.next, cur.next.next, cur.next
+        return sentry.next
+    # @lc code=end

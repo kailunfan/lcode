@@ -34,18 +34,18 @@
 #
 
 # @lc code=start
-
+from typing import List
 
 class Solution:
     def maxArea(self, height: List[int]) -> int:
-        lc = 0
-        rc = len(height) - 1
-        ans = (rc - lc) * min(height[lc], height[rc])
-        while lc < rc-1:
-            if height[lc] < height[rc]:
+        lc, rc = 0,len(height)-1
+        ans = 0
+        while lc<rc:
+            if height[lc]<height[rc]:
+                ans = max(ans, (rc-lc)*height[lc])
                 lc += 1
             else:
+                ans = max(ans, (rc-lc)*height[rc])
                 rc -= 1
-            ans = max(ans, (rc - lc) * min(height[lc], height[rc]))
         return ans
 # @lc code=end

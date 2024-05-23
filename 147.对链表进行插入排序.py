@@ -44,13 +44,13 @@
 #
 #
 #
+class ListNode:
+    def __init__(self, x):
+        self.val = x
+        self.next = None
 
 # @lc code=start
 # Definition for singly-linked list.
-# class ListNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.next = None
 
 
 class Solution:
@@ -61,22 +61,14 @@ class Solution:
         dummy.next = head
 
         cur = head
-        while cur.next:
-            if cur.next.val >= cur.val:
+        while cur and cur.next:
+            if cur.next.val > cur.val:
                 cur = cur.next
-                continue
-            # 待交换的右边的节点
-            rc = cur.next
-
-            # 关键点1
-            cur.next = cur.next.next
-
-            pre = dummy
-            while pre.next.val < rc.val:
-                pre = pre.next
-
-            # 解构赋值很取巧 666
-            # 关键点2:交换(将rc插入pre和pre.next之间)
-            pre.next, rc.next = rc, pre.next
+            else:
+                lc = dummy
+                while lc.next.val < cur.next.val:
+                    lc = lc.next
+                lc.next,  cur.next.next, cur.next = cur.next, lc.next, cur.next.next
         return dummy.next
+
 # @lc code=end

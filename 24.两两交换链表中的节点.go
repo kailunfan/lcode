@@ -65,7 +65,7 @@ type ListNode struct {
 */
 
 // @lc code=start
-func swapPairs1(head *ListNode) *ListNode {
+func swapPairs(head *ListNode) *ListNode {
 	// 迭代
 	sentry := &ListNode{0, head}
 	cur := sentry
@@ -75,7 +75,7 @@ func swapPairs1(head *ListNode) *ListNode {
 	return sentry.Next
 }
 
-func swapPairs(head *ListNode) *ListNode {
+func swapPairs1(head *ListNode) *ListNode {
 	// 递归
 	if head == nil || head.Next == nil {
 		return head

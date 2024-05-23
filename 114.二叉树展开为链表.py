@@ -14,19 +14,19 @@
 # Testcase Example:  '[1,2,5,3,4,null,6]'
 #
 # 给定一个二叉树，原地将它展开为一个单链表。
-# 
-# 
-# 
+#
+#
+#
 # 例如，给定二叉树
-# 
+#
 # ⁠   1
 # ⁠  / \
 # ⁠ 2   5
 # ⁠/ \   \
 # 3   4   6
-# 
+#
 # 将其展开为：
-# 
+#
 # 1
 # ⁠\
 # ⁠ 2
@@ -38,7 +38,7 @@
 # ⁠       5
 # ⁠        \
 # ⁠         6
-# 
+#
 #
 
 # @lc code=start
@@ -68,8 +68,9 @@ class Solution(object):
                 while lend.right:
                     lend = lend.right
                 lend.right = cur.right
-                cur.left,cur.right = None,cur.left
+                cur.right, cur.left = cur.left, None
             cur = cur.right
+
         return
 
         # 递归
@@ -89,7 +90,6 @@ class Solution(object):
                 cur = cur.right
             cur.right = rc
             return node
-    
+
         build(root)
 # @lc code=end
-

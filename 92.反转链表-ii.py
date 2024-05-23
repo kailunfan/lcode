@@ -37,24 +37,19 @@ class Solution:
     def reverseBetween(self, head: ListNode, m: int, n: int) -> ListNode:
         if not head or not head.next:
             return head
-
-        sentry = ListNode(None)
+        sentry = ListNode(0)
         sentry.next = head
-        c = sentry
-        for i in range(m-1):
-            c = c.next
-        mc = c.next
+        pre_tail = sentry
+        for _ in range(m-1):
+            pre_tail = pre_tail.next
 
-        # 开始反转(反转m-n+1次)
+        this_head = pre_tail.next
+        cur = this_head
         pre = None
-        cur = mc
-        for i in range(n-m+1):
-            tmp = cur.next
-            cur.next= pre
-            pre = cur
-            cur = tmp
-        c.next = pre
-        mc.next = cur
+        for _ in range(n-m+1):
+            cur.next, cur, pre = pre, cur.next, cur
+        pre_tail.next = pre
+        this_head.next = cur
         return sentry.next
 
-# @lc code=end
+        # @lc code=end

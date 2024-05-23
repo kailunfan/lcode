@@ -66,11 +66,12 @@ class Solution(object):
         :rtype: TreeNode
         """
         def search(node):
-            if node.val < p.val and node.val < q.val:
+            if p.val > node.val and q.val > node.val:
                 return search(node.right)
-            if node.val > p.val and node.val > q.val:
+            if p.val < node.val and q.val < node.val:
                 return search(node.left)
             return node
+
         return search(root)
 
 # @lc code=end

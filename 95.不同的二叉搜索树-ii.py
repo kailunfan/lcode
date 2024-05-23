@@ -37,14 +37,14 @@
 #
 #
 #
+class TreeNode(object):
+    def __init__(self, x):
+        self.val = x
+        self.left = None
+        self.right = None
 
 # @lc code=start
 # Definition for a binary tree node.
-# class TreeNode(object):
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
 
 
 class Solution(object):
@@ -53,24 +53,21 @@ class Solution(object):
         :type n: int
         :rtype: List[TreeNode]
         """
-        if n<=0:
-            return []
-        # 回溯
-        def build(start,end):
+        def build(start, end):
+            ans = []
             if start > end:
                 return [None]
             if start == end:
                 return [TreeNode(start)]
-            ans = []
-            for i in range(start,end+1):
-                for x in build(start,i-1):
-                    for y in build(i+1,end):
-                        tree = TreeNode(i)
-                        tree.left = x
-                        tree.right = y
-                        ans.append(tree)
+            for i in range(start, end+1):
+                for j in build(start, i-1):
+                    for k in build(i+1, end):
+                        n = TreeNode(i)
+                        n.left = j
+                        n.right = k
+                        ans.append(n)
             return ans
+        return build(1, n)
 
-        return build(1,n)
 
 # @lc code=end

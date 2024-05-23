@@ -14,21 +14,21 @@
 # Testcase Example:  '[1,2]'
 #
 # 请判断一个链表是否为回文链表。
-# 
+#
 # 示例 1:
-# 
+#
 # 输入: 1->2
 # 输出: false
-# 
+#
 # 示例 2:
-# 
+#
 # 输入: 1->2->2->1
 # 输出: true
-# 
-# 
+#
+#
 # 进阶：
 # 你能否用 O(n) 时间复杂度和 O(1) 空间复杂度解决此题？
-# 
+#
 #
 
 # @lc code=start
@@ -39,7 +39,7 @@
 #         self.next = None
 
 class Solution(object):
-    def isPalindrome(self, head):
+    def isPalindrome1(self, head):
         """
         :type head: ListNode
         :rtype: bool
@@ -59,7 +59,31 @@ class Solution(object):
                 return False
             lc = lc.next
         return True
-        
-        
-# @lc code=end
 
+    def isPalindrome(self, head):
+        if not head or not head.next:
+            return True
+        s, f = head, head.next
+        while f and f.next:
+            s = s.next
+            f = f.next.next
+
+        s.next, newHead = None, s.next
+
+        pre = None
+        cur = newHead
+        while cur:
+            cur.next, cur, pre = pre, cur.next, cur
+
+        newHead = pre
+
+        l1, l2 = head, newHead
+        while l1 and l2:
+            if l1.val != l2.val:
+                return False
+            l1 = l1.next
+            l2 = l2.next
+        return True
+
+
+# @lc code=end

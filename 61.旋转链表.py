@@ -48,24 +48,18 @@ class Solution:
     def rotateRight(self, head: ListNode, k: int) -> ListNode:
         if not head or not head.next or k == 0:
             return head
-
-        # 遍历一次,记录总长度,顺便将尾部指向首部
         l = 1
-        rc = head
-        while rc.next:
+        cur = head
+        while cur.next:
             l += 1
-            rc = rc.next
-        rc.next = head
+            cur = cur.next
+        cur.next = head
 
-        # 计算等效移动步数(关键点)
-        step = l-1 - k % l
-        lc = head
-        for i in range(step):
-            lc = lc.next
-        ans = lc.next
-        lc.next = None
+        r_number = l - 1 - k%l
+        for _ in range(r_number):
+            head = head.next
+        ans = head.next
+        head.next = None
         return ans
 
-
 # @lc code=end
-

@@ -40,25 +40,14 @@ class Solution(object):
         :type n: int
         :rtype: int
         """
-        # state = {0: 1, 1: 1}
-        # for i in range(2,n+1):
-        #     tmp = 0
-        #     for j in range(0,i):
-        #         tmp += state[j] * state[i - j - 1]
-        #     state[i] = tmp
-        # return state[n]
-
-        # 递归
         @lru_cache(None)
-        def search(x):
-            if x <= 1:
+        def search(n):
+            if n <= 1:
                 return 1
-            return sum([search(i)*search(x-i-1) for i in range(x)])
-
+            ans = 0
+            for i in range(n):
+                ans += search(i) * search(n-i-1)
+            return ans
         return search(n)
-
-                
-
-
 
 # @lc code=end

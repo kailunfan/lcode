@@ -94,7 +94,7 @@ class Solution(object):
         def search(node):
             if not node:
                 return
-            if node in [p,q]:
+            if node == p or node == q:
                 return node
             lans = search(node.left)
             rans = search(node.right)

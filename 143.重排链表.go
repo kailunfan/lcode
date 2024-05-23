@@ -71,8 +71,11 @@ type ListNode struct {
  * }
  */
 func reorderList(head *ListNode) {
+	if head == nil || head.Next == nil {
+		return
+	}
 	// get middle
-	s, f := head, head
+	s, f := head, head.Next
 	for f != nil && f.Next != nil {
 		s = s.Next
 		f = f.Next.Next
@@ -88,13 +91,9 @@ func reorderList(head *ListNode) {
 	head2 := pre
 
 	// combine
-	c1, c2 := head, head2
-	for c1 != nil && c2 != nil {
-		t1, t2 := c1.Next, c2.Next
-		c1.Next = c2
-		c1 = t1
-		c2.Next = c1
-		c2 = t2
+	cur, nxt := head, head2
+	for cur != nil {
+		cur.Next, nxt, cur = nxt, cur.Next, nxt
 	}
 }
 

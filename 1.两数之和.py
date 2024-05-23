@@ -14,10 +14,15 @@ class Solution(object):
         :type target: int
         :rtype: List[int]
         """
+        map = {i: ind for ind, i in enumerate(nums)}
         for (index, i) in enumerate(nums):
             remain = target - i
-            if remain in nums[index+1:]:
-                return [nums.index(i), nums.index(i) + 1 + nums[index+1:].index(remain)]
+            v = map.get(remain)
+            if not v:
+                continue
+            if v == index:
+                continue
+            return [index, map[remain]]
 
         return [0, 0]
 
@@ -25,5 +30,5 @@ class Solution(object):
 
 
 s = Solution()
-res = s.twoSum([2,3, 3], 6)
+res = s.twoSum([3, 2, 4], 6)
 print(res)

@@ -45,17 +45,6 @@ class Solution:
             "8": ["t", "u", "v"],
             "9": ["w", "x", "y", "z"],
         }
-        # ans = []
-        # dlen = len(digits)
-        # def backtreck(res,l):
-        #     if l == dlen:
-        #         ans.append(res)
-        #         return
-        #     for i in m[digits[l]]:
-        #         backtreck(res+i,l+1)
-        # backtreck('',0)
-        # return ans
-
         ans = [""]
         for i in digits:
             this_ans = []

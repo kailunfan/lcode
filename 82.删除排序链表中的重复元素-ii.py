@@ -46,22 +46,16 @@ class Solution(object):
             return head
         sentry = ListNode(None)
         sentry.next = head
-
-        pre = sentry
-        while True:
-            cur = pre.next
-            if not cur or not cur.next:
-                break
-            next = cur.next
-
-            # cur无重复
-            if next.val != cur.val:
-                pre = cur
-                continue
-            # cur有重复
-            while next and next.val == cur.val:
-                next = next.next
-            pre.next = next
+        cur = sentry
+        while cur and cur.next and cur.next.next:
+            if cur.next.val == cur.next.next.val:
+                v = cur.next.val
+                rc = cur.next.next.next
+                while rc and rc.val == v:
+                    rc = rc.next
+                cur.next = rc
+            else:
+                cur = cur.next
         return sentry.next
 
 

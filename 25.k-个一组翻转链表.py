@@ -40,53 +40,49 @@
 #
 #
 
+class ListNode:
+    def __init__(self, x):
+        self.val = x
+        self.next = None
 # @lc code=start
 # Definition for singly-linked list.
-# class ListNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.next = None
+
 
 class Solution:
-    def reverseKGroup(self, head: ListNode, k: int) -> ListNode:
+    def reverseKGroup1(self, head: ListNode, k: int) -> ListNode:
+        sentry = ListNode(None)
+        pre_tail = sentry
+        next_head = head
 
-        # 迭代
-        # 头
-        if not head:
-            return head
-        ans = head
-        for i in range(k-1):
-            ans = ans.next
-            if not ans:
-                return head
-        while head:
-            pre,cur = None,head
-            for i in range(k):
-                cur.next,cur,pre = pre,cur.next,cur
-            # 检查剩余元素
-            c = cur
-            if not c:
-                return ans
-            for i in range(k-1):
-                c = c.next
-                if not c:
-                    head.next = cur
-                    return ans
-            head.next = c
-            head = cur
-        return ans
-                
-        # 递归
+        while True:
+            this_head = next_head
+            for _ in range(k):
+                if not next_head:
+                    pre_tail.next = this_head
+                    return sentry.next
+                next_head = next_head.next
+
+            pre = next_head
+            cur = this_head
+            for _ in range(k):
+                cur.next, cur, pre = pre, cur.next, cur
+            pre_tail.next = pre
+            pre_tail = this_head
+
+    def reverseKGroup(self, head: ListNode, k: int) -> ListNode:
         if not head:
             return head
         cur = head
-        for i in range(k-1):
+        for _ in range(k-1):
             cur = cur.next
             if not cur:
                 return head
-        pre, cur = self.reverseKGroup(cur.next, k), head
-        for i in range(k):
+
+        next_head = self.reverseKGroup(cur.next, k)
+        pre = next_head
+        cur = head
+        for _ in range(k):
             cur.next, cur, pre = pre, cur.next, cur
         return pre
 
-# @lc code=end
+    # @lc code=end

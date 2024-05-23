@@ -33,42 +33,34 @@
 #
 #
 
+class TreeNode(object):
+    def __init__(self, x):
+        self.val = x
+        self.left = None
+        self.right = None
+
 # @lc code=start
 # Definition for a binary tree node.
 
 
-# class TreeNode(object):
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
-
-
 class Solution(object):
-    ind = 0
     def buildTree(self, preorder, inorder):
         """
         :type preorder: List[int]
         :type inorder: List[int]
         :rtype: TreeNode
         """
-        order_map = {item: ind for ind,item in enumerate(preorder)}
-
-        def build(li):
-            if not li:
+        def build(prelist, inlist):
+            if len(prelist) == 0:
                 return None
-            if len(li) == 1:
-                return TreeNode(li[0])
-            min_val = li[0]
-            min_index = 0
-            for (ind,item) in enumerate(li):
-                if order_map[item] < order_map[min_val]:
-                    min_val = item
-                    min_index = ind
-            root = TreeNode(min_val)
-            root.left = build(li[:min_index])
-            root.right = build(li[min_index+1:])
+            val = prelist[0]
+            # idx = inorder_ind_map[val]
+            idx = inlist.index(val)
+            root = TreeNode(val)
+            root.left = build(prelist[1:idx+1], inlist[:idx])
+            root.right = build(prelist[idx+1:], inlist[idx+1:])
             return root
-        return build(inorder)
+
+        return build(preorder, inorder)
 
 # @lc code=end

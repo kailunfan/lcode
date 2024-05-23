@@ -65,6 +65,7 @@ func isPalindrome(head *ListNode) bool {
 		return true
 	}
 
+	// 取中技巧
 	s, f := head, head.Next
 	for f != nil && f.Next != nil {
 		f = f.Next.Next

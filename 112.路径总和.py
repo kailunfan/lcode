@@ -52,31 +52,12 @@ class Solution(object):
         if not root:
             return False
 
-        ## 迭代
-        q = [(root,root.val)]
-        while q:
-            node,val = q.pop(0)
-            if not node.left and not node.right and val == sum:
+        if not root.left and not root.right:
+            if sum == root.val:
                 return True
-            if node.left:
-                q.append((node.left,val+node.left.val))
-            if node.right:
-                q.append((node.right,val+node.right.val))
-        return False
+            return False
 
-        # 递归
-        def search(node,base):
-            # 叶子节点
-            if not node.left and not node.right:
-                if base == sum:
-                    self.res = True
-                    return
-            if node.left:
-                search(node.left,base+node.left.val)
-            if node.right:
-                search(node.right,base+node.right.val)
-        search(root,root.val)
-        return self.res
+        return self.hasPathSum(root.left, sum-root.val) or self.hasPathSum(root.right, sum-root.val)
 
 
 # @lc code=end

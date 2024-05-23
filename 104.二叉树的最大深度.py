@@ -41,7 +41,7 @@
 #         self.right = None
 
 class Solution(object):
-    def maxDepth(self, root):
+    def maxDepth1(self, root):
         """
         :type root: TreeNode
         :rtype: int
@@ -61,6 +61,10 @@ class Solution(object):
             layer = tmp
             
         return depth
-            
+    
+    def maxDepth(self, root):
+        if not root:
+            return 0
+        return max(self.maxDepth(root.left)+1, self.maxDepth(root.right)+1)
 # @lc code=end
 
