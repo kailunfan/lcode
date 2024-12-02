@@ -40,23 +40,27 @@
 class Solution:
     def combinationSum3(self, k: int, n: int) -> List[List[int]]:
         # 迭代
-        res = [[]]
-        for i in range(1,10):
-            res += [x+[i] for x in res if len(x)<k and sum(x)<=n]
-        return [x for x in res if sum(x)==n and len(x)==k]
+        # res = [[]]
+        # for i in range(1,10):
+        #     res += [x+[i] for x in res if len(x)<k and sum(x)<=n]
+        # return [x for x in res if sum(x)==n and len(x)==k]
 
         # 回溯
-        ans = []
-        def backtrack(val,ind):
-            s = sum(val)
-            if s > n:
+        ans, path = [], []
+        
+        def backtrack(ind):
+            s = sum(path)
+            if s>n:
                 return
-            if len(val) == k and s==n:
-                return ans.append(val)
-            for i in range(ind,10):
-                backtrack([i]+val,i+1)
-        backtrack([],1)
-        return ans
+            if len(path) == k and s == n:
+                ans.append(path[:])
+            for i in range(ind, 10):
+                path.append(i)
+                backtrack(i+1)
+                path.pop()
+
+        backtrack(1)
+        return ans 
 
 # @lc code=end
 

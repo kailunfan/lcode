@@ -97,7 +97,7 @@ class Solution:
 
         return ans
 
-    def longestConsecutive(self, nums: List[int]) -> int:
+    def longestConsecutive3(self, nums: List[int]) -> int:
         if len(nums) == 0:
             return 0
 
@@ -114,5 +114,18 @@ class Solution:
             return ans
         return max(search(i) for i in nums)
 
+    def longestConsecutive(self, nums: List[int]) -> int:
+        ans = 0
+        st = set(nums)
+        for i in nums:
+            if i-1 in st:
+                continue
+            v = 0
+            j = i
+            while j in st:
+                v+=1
+                j+=1
+            ans = max(ans, v)
+        return ans
 
 # @lc code=end

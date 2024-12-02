@@ -37,30 +37,24 @@ import copy
 
 
 class Solution(object):
-    def permute1(self, nums):
+    def permute(self, nums):
         """
         :type nums: List[int]
         :rtype: List[List[int]]
         """
-
-        # 标准回溯
         result = []
-
-        def backtrack(tmp, visited):
-            if len(tmp) == len(nums):
-                result.append(tmp)
-                return
-            for i in range(len(nums)):
-                if visited[i]:
-                    continue
-                visited[i] = 1
-                backtrack(tmp + [nums[i]], visited)
-                visited[i] = 0
-        backtrack([], [0]*len(nums))
+        def backtrack(ind):
+            if ind == len(nums):
+                result.append(nums[:])
+            for i in range(ind, len(nums)):
+                nums[ind],nums[i] = nums[i],nums[ind] 
+                backtrack(ind+1)
+                nums[ind],nums[i] = nums[i],nums[ind] 
+        backtrack(0)
         return result
 
     # iteration
-    def permute(self, nums):
+    def permute1(self, nums):
         ans = [[]]
         for n in nums:
             this_ans = []

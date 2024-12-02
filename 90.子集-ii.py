@@ -35,20 +35,25 @@
 # @lc code=start
 
 
+from typing import List
+
+
 class Solution:
     def subsetsWithDup(self, nums: List[int]) -> List[List[int]]:
         # 回溯
-        ans = []
-        nums.sort()
-
-        def search(val, ind):
-            ans.append(val)
+        ans, path = [], []
+        def track(ind):
+            ans.append(path[:])
             for i in range(ind, len(nums)):
-                if i > ind and nums[i] == nums[i-1]:
+                if i>ind and nums[i] == nums[i-1]:
                     continue
-                search(val+[nums[i]], i+1)
-        search([], 0)
+                path.append(nums[i])
+                track(i+1)
+                path.pop()
+        nums.sort()
+        track(0)
         return ans
+
 
 
 # @lc code=end

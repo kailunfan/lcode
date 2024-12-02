@@ -42,17 +42,16 @@ class ListNode:
 class Solution:
     def swapPairs(self, head: ListNode) -> ListNode:
         # 这道题用递归so easy啊.
-        # if not head or not head.next:
-        #     return head
-        # head.next.next, head.next, head = head, self.swapPairs(head.next.next), head.next
-        # return head
-
+        if not head or not head.next:
+            return head
+        head.next.next, head.next, head  = head, self.swapPairs(head.next.next), head.next
+        return head
         # 迭代
         sentry = ListNode(0)
         sentry.next = head
         cur = sentry
         while cur and cur.next and cur.next.next:
             cur.next.next.next, cur.next.next,      cur.next,      cur = \
-            cur.next,           cur.next.next.next, cur.next.next, cur.next
+                cur.next,           cur.next.next.next, cur.next.next, cur.next
         return sentry.next
     # @lc code=end

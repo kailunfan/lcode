@@ -52,24 +52,20 @@
 #
 #
 #
-
 # @lc code=start
+from collections import defaultdict
+
 class Solution:
     def lengthOfLongestSubstring(self, s: str) -> int:
         ans = 0
-        st = set()
+        wd = defaultdict(int)
         lc, rc = 0, 0
-        while lc < len(s):
-            while rc < len(s):
-                if s[rc] in st:
-                    break
-                st.add(s[rc])
-                rc += 1
-            ans = max(ans, rc-lc)
-            if s[lc] in st:
-                st.remove(s[lc])
-            lc += 1
+        while rc<len(s):
+            wd[s[rc]] += 1
+            while wd[s[rc]]>1:
+                wd[s[lc]] -= 1
+                lc += 1
+            ans = max(ans,rc-lc+1)
+            rc += 1
         return ans
-
-
-# @lc code=end
+            

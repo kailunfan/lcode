@@ -44,13 +44,14 @@ class Solution(object):
         :rtype: List[List[int]]
         """
         # 回溯
-        ans = []
-        l = len(nums)
-        def search(target,ind):
-            ans.append(target)
-            for i in range(ind,l):
-                search(target+[nums[i]],i+1)
-        search([],0)
+        ans, path = [], []
+        def track(ind):
+            ans.append(path[:])
+            for i in range(ind, len(nums)):
+                path.append(nums[i])
+                track(i+1)
+                path.pop()
+        track(0)
         return ans
 
         # 逐个元素添加

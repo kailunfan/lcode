@@ -35,20 +35,15 @@
 # @lc code=start
 class Solution(object):
     def twoSum(self, numbers, target):
-        """
-        :type numbers: List[int]
-        :type target: int
-        :rtype: List[int]
-        """
-        i = 0
-        j = len(numbers) - 1
-        while i<j:
-            s = numbers[i] + numbers[j]
+        lc,rc = 0,len(numbers) -1
+        while lc<rc:
+            s = numbers[lc] + numbers[rc]
             if s == target:
-                return [i+1,j+1]
-            if s > target:
-                j-=1
-            else:
-                i+=1
+                return [lc+1,rc+1]
+            if s>target:
+                rc -= 1
+            elif s<target:
+                lc +=1
+
 # @lc code=end
 

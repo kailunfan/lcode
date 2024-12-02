@@ -69,36 +69,39 @@ import collections
 # @lc code=start
 
 
+
 class Solution:
     def minWindow(self, s: str, t: str) -> str:
-        t_map = collections.Counter(t)
+        need = collections.defaultdict(int)
+        window = collections.defaultdict(int)
+        for c in t:
+            need[c] += 1
+        
+        lc,rc = 0,0
+        valid = 0
+        ans_length = float('inf')
+        ans_start = 0
 
-        def check(slice_map):
-            for k, v in t_map.items():
-                v1 = slice_map.get(k)
-                if not v1 or v1 < v:
-                    return False
-            return True
+        while rc<len(s):
+            c = s[rc]
+            rc += 1
+            if c in need:
+                window[c] += 1
+                if window[c] == need[c]:
+                    valid += 1
 
-        ans, ans_len = "", float('inf')
+            while valid == len(need):
+                if rc-lc<ans_length:
+                    ans_start = lc
+                    ans_length = rc-lc
+                d = s[lc]
+                if s[lc] in need:
+                    if window[d] == need[d]:
+                        valid -= 1
+                    window[d] -= 1
+                lc += 1
+        return "" if ans_length == float('inf') else s[ans_start:ans_start+ans_length]
 
-        lc, rc = 0, 0
-        counter = collections.defaultdict(int)
-        counter[s[0]] = 1
-        while lc < len(s):
-            while rc < len(s):
-                if not check(counter):
-                    rc += 1
-                    if rc < len(s):
-                        counter[s[rc]] += 1
-                else:
-                    new_len = rc-lc-1
-                    if new_len < ans_len:
-                        ans_len = new_len
-                        ans = s[lc:rc+1]
-                    break
-            counter[s[lc]] -= 1
-            lc += 1
             
         return ans
 

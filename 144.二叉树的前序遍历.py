@@ -14,21 +14,21 @@
 # Testcase Example:  '[1,null,2,3]'
 #
 # 给定一个二叉树，返回它的 前序 遍历。
-# 
+#
 # 示例:
-# 
-# 输入: [1,null,2,3]  
+#
+# 输入: [1,null,2,3]
 # ⁠  1
 # ⁠   \
 # ⁠    2
 # ⁠   /
-# ⁠  3 
-# 
+# ⁠  3
+#
 # 输出: [1,2,3]
-# 
-# 
+#
+#
 # 进阶: 递归算法很简单，你可以通过迭代算法完成吗？
-# 
+#
 #
 
 # @lc code=start
@@ -46,23 +46,23 @@ class Solution(object):
         :rtype: List[int]
         """
         # 迭代2
-        if not root:
-            return []
-        res = []
-        stack = [root]
-        while stack:
-            node = stack.pop()
-            res.append(node.val)
-            if node.right:
-                stack.append(node.right)
-            if node.left:
-                stack.append(node.left)
-        return res
+        # if not root:
+        #     return []
+        # res = []
+        # stack = [root]
+        # while stack:
+        #     node = stack.pop()
+        #     res.append(node.val)
+        #     if node.right:
+        #         stack.append(node.right)
+        #     if node.left:
+        #         stack.append(node.left)
+        # return res
 
         # 迭代
-        stack,res = [],[]
+        stack, res = [], []
         cur = root
-        while cur or stack:
+        while stack or cur:
             if cur:
                 res.append(cur.val)
                 stack.append(cur)
@@ -71,7 +71,4 @@ class Solution(object):
                 cur = stack.pop()
                 cur = cur.right
         return res
-        
-
 # @lc code=end
-

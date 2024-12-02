@@ -35,19 +35,26 @@ from typing import List
 class Solution:
     def combine(self, n: int, k: int) -> List[List[int]]:
         # 迭代
-        ans = [[]]
-        for i in range(1,n+1):
-            ans += [x+[i] for x in ans if len(x)<k]
-        return [x for x in ans if len(x) == k]
+        # ans = [[]]
+        # for i in range(1,n+1):
+        #     ans += [x+[i] for x in ans if len(x)<k]
+        # return [x for x in ans if len(x) == k]
         
         # 回溯
-        ans = []
-        def backtrack(val,ind):
-            if len(val) == k:
-                ans.append(val)
-            for i in range(ind+1,n+1):
-                backtrack(val+[i],i)
-        backtrack([],0)
+        ans, path = [], []
+        def backtrack(ind):
+            if len(path) == k:
+                ans.append(path[:])
+                return
+
+            for i in range(ind, n):
+                # 因为是从 1...n+1 取值
+                path.append(i+1)
+                backtrack(i+1)
+                path.pop()
+
+
+        backtrack(0)
         return ans
 
 # @lc code=end

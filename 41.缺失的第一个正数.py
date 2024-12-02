@@ -46,9 +46,15 @@
 # @lc code=start
 class Solution:
     def firstMissingPositive(self, nums: List[int]) -> int:
-        mx = 0
+        state = [0]*(len(nums)+1)
         for i in nums:
-            mx = max(i,mx)
-        return mx+1
+            if 0<=i<len(state):
+                state[i] = 1
+        for idx, i in enumerate(state):
+            if idx>0 and i == 0:
+                return idx
+        return len(state)
+
+
 # @lc code=end
 

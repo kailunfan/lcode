@@ -20,6 +20,7 @@ class Solution(object):
             v = map.get(remain)
             if not v:
                 continue
+            # 容易忽略的点
             if v == index:
                 continue
             return [index, map[remain]]

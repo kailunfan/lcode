@@ -44,6 +44,19 @@ class Solution(object):
         :type root: TreeNode
         :rtype: List[int]
         """
+        # 递归
+        res = []
+        def tranverse(node):
+            if not node:
+                return
+            tranverse(node.left)
+            tranverse(node.right)
+            res.append(node.val)
+        tranverse(root)
+        return res
+            
+
+        
         # 前序遍历的变种
         stack,res = [],[]
         cur = root

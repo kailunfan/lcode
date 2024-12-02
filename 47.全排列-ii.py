@@ -32,21 +32,26 @@ from typing import List
 
 class Solution:
     def permuteUnique(self, nums: List[int]) -> List[List[int]]:
-
-        result = []
-
-        def backtrack(tmp, visited):
-            if len(tmp) == len(nums):
-                result.append(tmp)
+        used = [False]*len(nums)
+        # 不懂
+        def backtrack(ind):
+            if ind == len(nums):
+                ans.append(nums[:])
                 return
-            for i in range(len(nums)):
-                # 条件是关键
-                if visited[i] or (i > 0 and nums[i] == nums[i - 1] and not visited[i - 1]):
+            for i in range(ind, len(nums)):
+                if used[i]:
                     continue
-                visited[i] = True
-                backtrack(tmp + [nums[i]],visited)
-                visited[i] = False
-        backtrack([], [False] * len(nums))
-        return result
-print(Solution().permuteUnique([1,1,2]))
+                if i>ind and nums[i] == nums[i-1] and not used[i-1]:
+                    continue
+                used[i] = True
+                nums[i],nums[ind] = nums[ind],nums[i]
+                backtrack(ind+1)
+                nums[i],nums[ind] = nums[ind],nums[i]
+                used[i] = False
+         
+        ans = []
+        nums.sort()
+        backtrack(0)
+        return ans
+
 # @lc code=end

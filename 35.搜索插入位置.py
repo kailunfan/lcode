@@ -59,10 +59,8 @@ class Solution(object):
             v = nums[m]
             if v < target:
                 l = m + 1
-            elif v > target:
-                r = m
             else:
-                return m
+                r = m
         return l
 
 # @lc code=end

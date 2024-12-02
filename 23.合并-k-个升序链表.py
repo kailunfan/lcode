@@ -67,11 +67,33 @@ class ListNode:
     def __init__(self, val=0, next=None):
         self.val = val
         self.next = next
+    
 # @lc code=start
 # Definition for singly-linked list.
 
+import heapq
 
 class Solution:
+    def mergeKLists(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
+        if not lists:
+            return None
+        sentry = ListNode()
+        cur = sentry
+        pq = []
+        
+        for i, head in enumerate(lists):
+            if head:
+                heapq.heappush(pq, (head.val,i,head))
+    
+        while pq:
+            _, i, node = heapq.heappop(pq)
+            cur.next = node
+            cur = cur.next
+            if node.next:
+                heapq.heappush(pq, (node.next.val,i,node.next))
+        return sentry.next
+
+
     def mergeKLists1(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
         sentry = ListNode()
         cur = sentry
@@ -91,7 +113,7 @@ class Solution:
             lists[min_ind] = min_node.next
         return sentry.next
 
-    def mergeKLists(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
+    def mergeKLists2(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
         # 两两合并
         if len(lists) == 0:
             return None
